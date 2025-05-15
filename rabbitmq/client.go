@@ -16,11 +16,6 @@ func NewClient(uri string) (*Client, error) {
 	return &Client{conn: conn}, nil
 }
 
-// Channel 取得一個新的 channel
-func (c *Client) Channel() (*amqp.Channel, error) {
-	return c.conn.Channel()
-}
-
 // Publish 發送訊息
 func (c *Client) Publish(exchange, routingKey string, body []byte) error {
 	ch, err := c.conn.Channel()
