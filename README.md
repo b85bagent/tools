@@ -10,10 +10,8 @@
 ## 📦 安裝
 
 ```bash
-go get github.com/your-org/tools@v0.2.0
+go get github.com/b85bagent/tools@v0.2.0
 ```
-
-> 🔄 請將 `your-org` 替換為你的實際 GitHub 使用者名稱或組織名稱。
 
 ---
 
