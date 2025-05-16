@@ -15,7 +15,7 @@ import (
 // 如果提供了客戶端憑證和私鑰，則會將其加載到 TLS 配置中
 // 如果設置了 InsecureSkipVerify，則會跳過對服務器憑證的驗證
 // 返回一個新的 Prometheus 客戶端實例
-func NewClient(endpoint, username, password,
+func NewPrometheusClient(endpoint, username, password,
 	clientCert, clientKey, caCert string,
 	enableTLSVerify bool) (*Client, error) {
 
@@ -50,13 +50,13 @@ func NewClient(endpoint, username, password,
 	}
 
 	return &Client{
-		endpoint:        endpoint,
-		username:        username,
-		password:        password,
+		Endpoint:        endpoint,
+		Username:        username,
+		Password:        password,
 		clientCert:      clientCert,
 		clientKey:       clientKey,
 		caCert:          caCert,
 		enableTLSVerify: enableTLSVerify,
-		httpClient:      client,
+		HttpClient:      client,
 	}, nil
 }

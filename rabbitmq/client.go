@@ -7,7 +7,7 @@ import (
 )
 
 // Client RabbitMQ 客戶端
-func NewClient(uri string) (*Client, error) {
+func NewRabbitMQClient(uri string) (*Client, error) {
 	conn, err := amqp.Dial(uri)
 	if err != nil {
 		return nil, fmt.Errorf("mq dial failed: %w", err)
