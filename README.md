@@ -6,43 +6,76 @@
 - **Prometheus**: 與 Prometheus 進行整合的客戶端。
 - **RabbitMQ**: 與 RabbitMQ 進行整合的客戶端。
 
-## 安裝
-在您的專案中，使用以下命令安裝此 SDK：
+
+## 📦 安裝
+
 ```bash
-go get -u <repository-url>
+go get github.com/your-org/tools@v0.2.0
 ```
 
-## 使用方式
+> 🔄 請將 `your-org` 替換為你的實際 GitHub 使用者名稱或組織名稱。
 
-### Logger
-用於記錄日誌：
+---
+
+## 📌 模組介紹
+
+### 🐰 RabbitMQ Client
+
+快速建立連線與發送訊息。
+
 ```go
-import "path/to/logger"
+client, err := tools.NewClient("amqp://guest:guest@localhost:5672/")
+if err != nil {
+    log.Fatal(err)
+}
+defer client.Close()
 
-func main() {
-    logger := logger.NewLogger()
-    logger.Info("這是一條日誌訊息")
+err = client.Publish("my-exchange", "my-key", []byte(`{"msg":"hello"}`))
+if err != nil {
+    log.Printf("publish failed: %v", err)
 }
 ```
 
-### Prometheus
-用於監控數據：
-```go
-import "path/to/prometheus"
+---
 
-func main() {
-    client := prometheus.NewClient()
-    client.Monitor()
+### 📈 Prometheus Client (with TLS/mTLS)
+
+支援 TLS / mTLS，包含：
+- 自訂 CA 憑證
+- 客戶端憑證與私鑰
+- 可選擇跳過 TLS 驗證
+
+```go
+client, err := tools.NewClient(
+    "https://prom.example.com",
+    "username",
+    "password",
+    "./client.crt",
+    "./client.key",
+    "./ca.crt",
+    false, // insecureTLS: true 表示跳過驗證
+)
+if err != nil {
+    log.Fatal(err)
 }
+
+// 假設你有封裝 client.DoQuery(query string)
+resp, err := client.DoQuery("up")
 ```
 
-### RabbitMQ
-用於消息隊列的操作：
-```go
-import "path/to/rabbitmq"
+---
 
-func main() {
-    client := rabbitmq.NewClient()
-    client.Publish("queue_name", "message")
-}
+### 📋 Logrus Logger 初始化工具
+
+快速建立一個可自訂等級與輸出的 logrus logger。
+
+```go
+log := tools.NewLogrusLogger("debug", os.Stdout)
+log.Info("Logger is ready")
 ```
+
+支援等級：`trace`, `debug`, `info`, `warn`, `error`, `fatal`, `panic`  
+輸出位置為任意符合 `io.Writer` 的實例（如檔案或 `os.Stdout`）
+
+---
+
