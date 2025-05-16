@@ -20,6 +20,8 @@ func NewClient(endpoint, username, password,
 	enableTLSVerify bool) (*Client, error) {
 
 	// 改成是否啟用 TLS 驗證 true 表示啟用，false 表示不啟用
+	// 當 enableTLSVerify 為 true，InsecureSkipVerify 會是 false（不跳過驗證，安全）
+	// 當 enableTLSVerify 為 false，InsecureSkipVerify 會是 true（跳過驗證，不安全）
 	tlsConfig := &tls.Config{InsecureSkipVerify: !enableTLSVerify}
 
 	// 如果提供 CA 憑證，則加載 CA
