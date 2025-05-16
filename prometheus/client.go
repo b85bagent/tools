@@ -17,8 +17,10 @@ import (
 // 返回一個新的 Prometheus 客戶端實例
 func NewClient(endpoint, username, password,
 	clientCert, clientKey, caCert string,
-	insecureTLS bool) (*Client, error) {
-	tlsConfig := &tls.Config{InsecureSkipVerify: insecureTLS}
+	enableTLSVerify bool) (*Client, error) {
+
+	// 改成是否啟用 TLS 驗證 true 表示啟用，false 表示不啟用
+	tlsConfig := &tls.Config{InsecureSkipVerify: !enableTLSVerify}
 
 	// 如果提供 CA 憑證，則加載 CA
 	if caCert != "" {
