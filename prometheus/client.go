@@ -50,13 +50,13 @@ func NewClient(endpoint, username, password,
 	}
 
 	return &Client{
-		endpoint:    endpoint,
-		username:    username,
-		password:    password,
-		clientCert:  clientCert,
-		clientKey:   clientKey,
-		caCert:      caCert,
-		insecureTLS: insecureTLS,
-		httpClient:  client,
+		endpoint:        endpoint,
+		username:        username,
+		password:        password,
+		clientCert:      clientCert,
+		clientKey:       clientKey,
+		caCert:          caCert,
+		enableTLSVerify: enableTLSVerify,
+		httpClient:      client,
 	}, nil
 }
