@@ -1,4 +1,4 @@
-module tools
+module github.com/b85bagent/tools
 
 go 1.23.0
 
