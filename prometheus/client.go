@@ -17,12 +17,12 @@ import (
 // 返回一個新的 Prometheus 客戶端實例
 func NewPrometheusClient(endpoint, username, password,
 	clientCert, clientKey, caCert string,
-	enableTLSVerify bool) (*Client, error) {
+	enableTLS bool) (*Client, error) {
 
 	// 改成是否啟用 TLS 驗證 true 表示啟用，false 表示不啟用
 	// 當 enableTLSVerify 為 true，InsecureSkipVerify 會是 false（不跳過驗證，安全）
 	// 當 enableTLSVerify 為 false，InsecureSkipVerify 會是 true（跳過驗證，不安全）
-	tlsConfig := &tls.Config{InsecureSkipVerify: !enableTLSVerify}
+	tlsConfig := &tls.Config{InsecureSkipVerify: !enableTLS}
 
 	// 如果提供 CA 憑證，則加載 CA
 	if caCert != "" {
@@ -50,13 +50,13 @@ func NewPrometheusClient(endpoint, username, password,
 	}
 
 	return &Client{
-		Endpoint:        endpoint,
-		Username:        username,
-		Password:        password,
-		clientCert:      clientCert,
-		clientKey:       clientKey,
-		caCert:          caCert,
-		enableTLSVerify: enableTLSVerify,
-		HttpClient:      client,
+		Endpoint:   endpoint,
+		Username:   username,
+		Password:   password,
+		clientCert: clientCert,
+		clientKey:  clientKey,
+		caCert:     caCert,
+		enableTLS:  enableTLS,
+		HttpClient: client,
 	}, nil
 }
