@@ -10,7 +10,7 @@
 ## 📦 安裝
 
 ```bash
-go get github.com/b85bagent/tools@v0.2.0
+go get github.com/Wuli-Giao-Giao/tools@v0.2.0
 ```
 
 ---
